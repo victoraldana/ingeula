@@ -14,35 +14,19 @@ export function BrandLogo({ variant = "dark", compact = false }: BrandLogoProps)
       className="group inline-flex items-center gap-3 focus:outline-none"
       aria-label="IngeULA - Facultad de Ingeniería Universidad de Los Andes"
     >
-      {/* Geometric institutional emblem inspired by Andean peaks + engineering compass */}
+      {/* Official Facultad de Ingeniería ULA ("fi") Emblem */}
       <div
-        className={`relative flex h-10 w-10 shrink-0 items-center justify-center rounded-sm transition-transform duration-200 group-hover:scale-[1.03] ${
+        className={`relative flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-sm transition-transform duration-200 group-hover:scale-[1.03] ${
           isLight
-            ? "bg-white text-[#0039A6]"
-            : "bg-[#0039A6] text-white"
+            ? "bg-white p-1 shadow-sm"
+            : "bg-white p-0.5"
         }`}
       >
-        <svg
-          viewBox="0 0 36 36"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6"
-          aria-hidden="true"
-        >
-          <path
-            d="M6 27L15 9L21 20L25 14L31 27H6Z"
-            stroke="currentColor"
-            strokeWidth="2.4"
-            strokeLinejoin="round"
-          />
-          <circle cx="15" cy="9" r="2" fill="currentColor" />
-          <path
-            d="M11 27H26"
-            stroke="currentColor"
-            strokeWidth="2.4"
-            strokeLinecap="round"
-          />
-        </svg>
+        <img
+          src="/images/logo-fi-ula.png"
+          alt="Logo Facultad de Ingeniería ULA"
+          className="h-full w-full object-contain"
+        />
       </div>
 
       <div className="flex flex-col leading-none">

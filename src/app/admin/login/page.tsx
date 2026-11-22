@@ -51,9 +51,18 @@ export default function AdminLoginPage() {
         <div className="overflow-hidden rounded-md border border-slate-200 bg-white shadow-xl">
           {/* Header Banner */}
           <div className="bg-[#001A4D] px-7 py-7 text-white">
-            <div className="inline-flex items-center gap-2 rounded-sm bg-white/10 px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-blue-200">
-              <ShieldCheck className="h-3.5 w-3.5" />
-              Acceso Restringido · FI-ULA
+            <div className="flex items-center justify-between gap-4">
+              <div className="inline-flex items-center gap-2 rounded-sm bg-white/10 px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-blue-200">
+                <ShieldCheck className="h-3.5 w-3.5" />
+                Acceso Restringido · FI-ULA
+              </div>
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-sm bg-white p-1 shadow-sm">
+                <img
+                  src="/images/logo-fi-ula.png"
+                  alt="Logo Facultad de Ingeniería ULA"
+                  className="h-full w-full object-contain"
+                />
+              </div>
             </div>
             <h1 className="mt-3 text-2xl font-extrabold tracking-tight">
               Panel Administrador IngeULA

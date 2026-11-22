@@ -1,6 +1,7 @@
 import crypto from "crypto";
 import fs from "fs";
 import path from "path";
+import { getStorageRoot } from "./storage";
 import type {
   ContentScope,
   PortalDatabase,
@@ -11,8 +12,9 @@ import type {
   SafePortalUser,
 } from "./types";
 
-const DATA_DIR = path.join(process.cwd(), "data");
-const DB_PATH = path.join(DATA_DIR, "portal-db.json");
+function getDbPath(): string {
+  return path.join(getStorageRoot(), "portal-db.json");
+}
 
 export function hashPassword(password: string): string {
   const salt = crypto.randomBytes(16).toString("hex");
@@ -141,27 +143,32 @@ function createSeedDatabase(): PortalDatabase {
   };
 }
 
-function ensureDatabaseFile(): void {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
+function ensureDatabaseFile(): string {
+  const dbPath = getDbPath();
+  const dir = path.dirname(dbPath);
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
   }
-  if (!fs.existsSync(DB_PATH)) {
+  if (!fs.existsSync(dbPath)) {
     const seed = createSeedDatabase();
-    fs.writeFileSync(DB_PATH, JSON.stringify(seed, null, 2), "utf-8");
+    fs.writeFileSync(dbPath, JSON.stringify(seed, null, 2), "utf-8");
   }
+  return dbPath;
 }
 
 export function readDatabase(): PortalDatabase {
-  ensureDatabaseFile();
-  const raw = fs.readFileSync(DB_PATH, "utf-8");
+  const dbPath = ensureDatabaseFile();
+  const raw = fs.readFileSync(dbPath, "utf-8");
   return JSON.parse(raw) as PortalDatabase;
 }
 
 export function writeDatabase(db: PortalDatabase): void {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
+  const dbPath = getDbPath();
+  const dir = path.dirname(dbPath);
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
   }
-  fs.writeFileSync(DB_PATH, JSON.stringify(db, null, 2), "utf-8");
+  fs.writeFileSync(dbPath, JSON.stringify(db, null, 2), "utf-8");
 }
 
 export function getScopeContent(scope: ContentScope): {

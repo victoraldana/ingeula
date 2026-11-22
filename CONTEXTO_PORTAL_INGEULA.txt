@@ -188,4 +188,15 @@ D:\ingeula\
       primer arranque con `admin@ingeula.org` / `IngeULA2026!` y
       `electrica@ingeula.org` / `Electrica2026!`), lista para migrar a Postgres /
       Supabase en el futuro cambiando `src/lib/db.ts`.
+- 2026-11-22:
+  * Correccion de subida de archivos (flujogramas/PDFs) en entornos Linux/Docker
+    o serverless con filesystem restringido (`src/lib/storage.ts`):
+    - Resolucion automatica de directorio escribible (`INGEULA_DATA_DIR` ->
+      `<cwd>/data` -> `os.tmpdir()/ingeula-data`) tanto para `portal-db.json`
+      como para los archivos subidos (`uploads/<scope>/`).
+    - Nuevo endpoint `GET /api/uploads/[scope]/[filename]` para servir los
+      archivos subidos en tiempo real sin depender de `public/uploads/`.
+  * Actualizacion del logo oficial de la Facultad de Ingenieria ULA ("fi") en
+    `public/images/logo-fi-ula.png`, `BrandLogo.tsx`, `layout.tsx` (favicon) y
+    el login del panel administrador.
 ================================================================================

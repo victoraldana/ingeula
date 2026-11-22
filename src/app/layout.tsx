@@ -8,6 +8,10 @@ export const metadata: Metadata = {
     default: "IngeULA | Facultad de Ingeniería — Universidad de Los Andes",
     template: "%s | IngeULA · Facultad de Ingeniería ULA",
   },
+  icons: {
+    icon: "/images/logo-fi-ula.png",
+    apple: "/images/logo-fi-ula.png",
+  },
   description:
     "Portal institucional de la Facultad de Ingeniería de la Universidad de Los Andes (ULA), Mérida. Escuelas de Ingeniería de Sistemas, Eléctrica, Civil, Mecánica y Química.",
   keywords: [

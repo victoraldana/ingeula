@@ -40,4 +40,5 @@ next-env.d.ts
 
 # local runtime data and user uploads (auto-seeded on first run)
 /data/portal-db.json
+/data/uploads/
 /public/uploads/
