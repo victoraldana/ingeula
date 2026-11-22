@@ -1,0 +1,164 @@
+================================================================================
+CONTEXTO DEL PROYECTO: PORTAL INGEULA (FACULTAD DE INGENIERIA - ULA)
+Archivo de handoff / memoria de contexto para futuras modificaciones con agentes
+================================================================================
+
+1. VISION Y OBJETIVO DEL PROYECTO
+--------------------------------------------------------------------------------
+- Nombre del portal: IngeULA
+- Institucion: Facultad de Ingenieria de la Universidad de Los Andes (ULA),
+  Nucleo Universitario "Dr. Pedro Rincon Gutierrez" (La Hechicera), Merida,
+  Venezuela.
+- Referencia visual y estructural: https://tec.mx/es (Tecnologico de Monterrey).
+  Se adopta su lenguaje editorial moderno, limpio, modular, responsivo y de alta
+  jerarquia visual (azul institucional profundo, blanco puro, grises suaves,
+  mega-menu de navegacion, hero fotografico de alto impacto, tarjetas modulares
+  y bloques editoriales de noticias/comunidad).
+- Alcance inicial (Fase 1 - completada):
+  * Inicializar repositorio Git en D:\ingeula (rama principal: main).
+  * Crear la landing page institucional con informacion general de la Facultad
+    de Ingenieria ULA.
+  * Dejar lista la arquitectura y rutas base para las 5 escuelas principales de
+    ingenieria solicitadas:
+      1. Ingenieria de Sistemas   (/escuelas/sistemas)
+      2. Ingenieria Electrica     (/escuelas/electrica)
+      3. Ingenieria Civil         (/escuelas/civil)
+      4. Ingenieria Mecanica      (/escuelas/mecanica)
+      5. Ingenieria Quimica       (/escuelas/quimica)
+- Evolucion futura esperada:
+  Cada seccion de escuela ira incorporando contenido propio en el futuro:
+  pensum / malla curricular interactiva, prelaciones, laboratorios, docentes,
+  proyectos de grado, noticias/agenda por escuela, documentos descargables, etc.
+
+
+2. STACK TECNOLOGICO Y ENTORNO
+--------------------------------------------------------------------------------
+- Framework: Next.js 15 (App Router) + React 19
+- Lenguaje: TypeScript (strict: true)
+- Estilos: Tailwind CSS v4 (@tailwindcss/postcss)
+- Iconografia: lucide-react
+- Imagenes: assets estaticos locales en /public/images (next.config.ts usa
+  `images: { unoptimized: true }` para facilitar despliegues estaticos o en
+  cualquier hosting).
+- Entorno local verificado:
+  * SO: Windows
+  * Ruta workspace: D:\ingeula
+  * Node.js: v22.19.0 | npm: 11.14.1 | Git: 2.51.0
+  * Nota: `gh` CLI no estaba instalado; el repo es local en rama `main` y aun
+    no tiene remoto (`origin`) configurado en GitHub.
+
+
+3. SISTEMA DE DISENO (INSPIRADO EN TEC.MX/ES + IDENTIDAD ULA)
+--------------------------------------------------------------------------------
+Paleta principal (definida en src/app/globals.css):
+- Azul institucional primario (ula-blue):      #0039A6
+- Azul hover / oscuro (ula-blue-dark):         #002B7F
+- Navy institucional (ula-navy):               #001A4D
+- Navy profundo footer (ula-deep):             #04122B
+- Azul hielo / badges (ula-ice):               #EBF2FF
+- Superficie clara editorial (ula-surface):    #F4F7FB
+- Texto principal:                             #0A1628
+- Texto secundario:                            #475569 (slate-600)
+
+Tipografia:
+- Cargada via Google Fonts en src/app/layout.tsx (`Plus Jakarta Sans` + `Inter`)
+  con fallback limpio a Segoe UI / system-ui para que `npm run build` funcione
+  incluso sin conexion a internet (se evito `next/font/google` por esta razon).
+
+Patrones UX clave:
+- Barra superior institucional oscura (ubicacion La Hechicera + accesos rapidos).
+- Header sticky con logo geometrico IngeULA, mega-menu desplegable de las 5
+  escuelas, modal de busqueda rapida por escuela/departamento/area y drawer movil.
+- Hero a pantalla completa con gradiente azul editorial y barra inferior de
+  acceso directo a las 5 escuelas.
+- Seccion de escuelas con pestanas de filtro interactivo (Todas + cada escuela).
+
+
+4. ESTRUCTURA DE ARCHIVOS ACTUAL
+--------------------------------------------------------------------------------
+D:\ingeula\
+├── package.json
+├── next.config.ts
+├── postcss.config.mjs
+├── tsconfig.json
+├── README.md
+├── CONTEXTO_PORTAL_INGEULA.txt          <- Este archivo de contexto
+├── public/
+│   └── images/                          <- Fotografias editoriales generadas
+│       ├── hero-campus.jpg              <- Campus moderno + montanas andinas
+│       ├── school-sistemas.jpg
+│       ├── school-electrica.jpg
+│       ├── school-civil.jpg
+│       ├── school-mecanica.jpg
+│       └── school-quimica.jpg
+└── src/
+    ├── data/
+    │   ├── schools.ts                   <- Fuente unica de verdad de las 5 escuelas
+    │   └── faculty.ts                   <- Metricas, etapas academicas, pilares, noticias
+    ├── components/
+    │   ├── BrandLogo.tsx                <- Emblema geometrico + wordmark IngeULA
+    │   ├── Header.tsx                   <- Utility bar + navbar + mega-menu + buscador
+    │   ├── Footer.tsx                   <- Footer institucional multicolumna
+    │   ├── HeroSection.tsx              <- Hero principal + accesos a escuelas
+    │   ├── StatsStrip.tsx               <- Indicadores institucionales
+    │   ├── SchoolsShowcase.tsx          <- Grid interactivo y filtrable de escuelas
+    │   ├── AcademicModelSection.tsx     <- Ciclo Basico -> Escuela -> Grado
+    │   ├── ResearchPillarsSection.tsx   <- Investigacion, Vinculacion, Egresados
+    │   ├── NewsSection.tsx              <- "IngeULA Conecta" (actualidad/noticias)
+    │   └── CampusLifeSection.tsx        <- Banner Nucleo La Hechicera
+    └── app/
+        ├── globals.css
+        ├── layout.tsx                   <- Layout global (lang="es", Header, Footer)
+        ├── page.tsx                     <- Landing principal (/)
+        └── escuelas/
+            ├── page.tsx                 <- Directorio de las 5 escuelas (/escuelas)
+            └── [slug]/
+                └── page.tsx             <- Hub por escuela (SSG con generateStaticParams)
+
+
+5. RUTAS ACTUALES (TODAS VERIFICADAS CON `npm run build`)
+--------------------------------------------------------------------------------
+- /                      (Static)  Landing principal del portal IngeULA
+- /escuelas              (Static)  Directorio comparativo de las 5 escuelas
+- /escuelas/sistemas     (SSG)     Escuela de Ingenieria de Sistemas (EIS)
+- /escuelas/electrica    (SSG)     Escuela de Ingenieria Electrica (EIE)
+- /escuelas/civil        (SSG)     Escuela de Ingenieria Civil (EIC)
+- /escuelas/mecanica     (SSG)     Escuela de Ingenieria Mecanica (EIM)
+- /escuelas/quimica      (SSG)     Escuela de Ingenieria Quimica (EIQ)
+
+
+6. GUIA PARA FUTUROS AGENTES AL EXTENDER EL PORTAL
+--------------------------------------------------------------------------------
+1. Para editar o ampliar informacion de una escuela:
+   - Revisar primero `src/data/schools.ts` (tipo `EngineeringSchool`).
+   - Si cada escuela crece con subpaginas propias (ej. `/escuelas/sistemas/pensum`,
+     `/escuelas/sistemas/laboratorios`, `/escuelas/sistemas/noticias`), se pueden
+     crear subcarpetas bajo `src/app/escuelas/[slug]/` o separar datos por archivo
+     en `src/data/schools/<slug>.ts`.
+2. Para agregar noticias, eventos o informacion institucional:
+   - Editar `src/data/faculty.ts` o migrar a MDX / CMS headless cuando el
+     volumen de publicaciones crezca.
+3. Coherencia visual:
+   - Mantener el estilo sobrio, academico y moderno tipo `tec.mx/es`.
+   - Respetar la paleta azul institucional (`#0039A6` / `#001A4D`) y evitar
+     recargar la UI con colores o animaciones innecesarias.
+   - Mantener soporte 100% responsivo (mobile-first) y contenido en espanol.
+4. Verificacion obligatoria antes de entregar cambios:
+   - Ejecutar `npm run build` para validar TypeScript, Tailwind y generacion SSG.
+   - Hacer commits claros y atomicos en la rama `main` (o rama de feature si el
+     usuario lo solicita).
+
+
+7. HISTORIAL RESUMIDO DE CAMBIOS
+--------------------------------------------------------------------------------
+- 2026-11-22 (Commit c5fcc76):
+  * Inicializacion del repositorio Git en D:\ingeula (rama main).
+  * Creacion del proyecto Next.js 15 + TypeScript + Tailwind CSS v4.
+  * Generacion de 6 fotografias editoriales a medida en public/images/.
+  * Implementacion de la landing institucional inspirada en tec.mx/es y las
+    rutas dedicadas para Sistemas, Electrica, Civil, Mecanica y Quimica.
+  * Build de produccion verificado con exito (10 rutas generadas sin errores).
+- 2026-11-22:
+  * Creacion de este archivo `CONTEXTO_PORTAL_INGEULA.txt` para continuidad con
+    otros agentes.
+================================================================================
