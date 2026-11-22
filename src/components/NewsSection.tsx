@@ -1,10 +1,31 @@
 import Link from "next/link";
 import { ArrowRight, Newspaper } from "lucide-react";
-import { FACULTY_NEWS } from "@/data/faculty";
+import { FACULTY_NEWS, type NewsItem } from "@/data/faculty";
+import type { PortalPost } from "@/lib/types";
 
-export function NewsSection() {
-  const featured = FACULTY_NEWS.find((item) => item.featured) ?? FACULTY_NEWS[0];
-  const secondary = FACULTY_NEWS.filter((item) => item.id !== featured.id);
+interface NewsSectionProps {
+  dynamicPosts?: PortalPost[];
+}
+
+export function NewsSection({ dynamicPosts = [] }: NewsSectionProps) {
+  const mappedDynamic: NewsItem[] = dynamicPosts.map((post, idx) => ({
+    id: post.id,
+    category: post.category,
+    date: new Date(post.createdAt).toLocaleDateString("es-VE", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    }),
+    title: post.title,
+    excerpt: post.summary,
+    image: post.coverImage || "/images/hero-campus.jpg",
+    href: "/escuelas",
+    featured: idx === 0,
+  }));
+
+  const combinedNews = [...mappedDynamic, ...FACULTY_NEWS].slice(0, 3);
+  const featured = combinedNews[0];
+  const secondary = combinedNews.slice(1);
 
   return (
     <section id="noticias" className="bg-white py-20 lg:py-28">

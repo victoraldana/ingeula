@@ -13,15 +13,13 @@ import {
   FolderKanban,
 } from "lucide-react";
 import { ENGINEERING_SCHOOLS, getSchoolBySlug } from "@/data/schools";
+import { getScopeContent } from "@/lib/db";
+import { SchoolDynamicContent } from "@/components/SchoolDynamicContent";
+
+export const dynamic = "force-dynamic";
 
 interface SchoolPageProps {
   params: Promise<{ slug: string }>;
-}
-
-export function generateStaticParams() {
-  return ENGINEERING_SCHOOLS.map((school) => ({
-    slug: school.slug,
-  }));
 }
 
 export async function generateMetadata({
@@ -51,6 +49,7 @@ export default async function SchoolDetailPage({ params }: SchoolPageProps) {
   }
 
   const otherSchools = ENGINEERING_SCHOOLS.filter((s) => s.slug !== school.slug);
+  const { posts, resources, videos } = getScopeContent(school.slug);
 
   return (
     <div>
@@ -106,8 +105,15 @@ export default async function SchoolDetailPage({ params }: SchoolPageProps) {
       {/* Main Content Grid */}
       <section className="bg-white py-16 lg:py-20">
         <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
-          {/* Left Column: Mission, Focus Areas, Departments */}
+          {/* Left Column: Dynamic Content + Mission, Focus Areas, Departments */}
           <div className="space-y-12 lg:col-span-8">
+            <SchoolDynamicContent
+              schoolShortName={school.shortName}
+              posts={posts}
+              resources={resources}
+              videos={videos}
+            />
+
             {/* Mission */}
             <div>
               <span className="text-xs font-bold uppercase tracking-[0.18em] text-[#0039A6]">

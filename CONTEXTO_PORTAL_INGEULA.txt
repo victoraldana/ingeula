@@ -163,8 +163,29 @@ D:\ingeula\
 - 2026-11-22 (Commit 57436d0):
   * Creacion de este archivo `CONTEXTO_PORTAL_INGEULA.txt` para continuidad con
     otros agentes.
-- 2026-11-22:
+- 2026-11-22 (Commit 61f9b97):
   * Conversion del Hero principal (`HeroSection.tsx`) en un carrusel interactivo
     alimentado desde `HERO_SLIDES` en `src/data/faculty.ts` para mostrar
     informacion destacada al visitante apenas entra al portal.
+- 2026-11-22:
+  * Implementacion del Panel Administrador completo con RBAC por escuela:
+    - Rutas UI: `/admin/login` y `/admin` (`AdminDashboardClient.tsx`).
+    - Autenticacion segura con hash `scrypt` + cookie HTTP-only firmada con
+      HMAC-SHA256 (`src/lib/auth.ts`).
+    - Roles: `super_admin` (crea/edita/elimina usuarios, asigna roles y gestiona
+      todas las secciones), `school_admin` (gestiona solo sus escuelas asignadas,
+      ej. Administrador de Electrica) y `editor` (publica contenido en sus
+      secciones asignadas).
+    - Funcionalidades de contenido por seccion (`facultad` o cada escuela):
+      1. Posts / Informacion de relevancia (con portada opcional y pin destacado).
+      2. Recursos de interes (subida directa de archivos PDF, flujogramas PNG/JPG/
+         SVG/WebP y Office a `public/uploads/<scope>/`, o enlace externo).
+      3. Videos de YouTube incrustados con validacion de URL y vista previa.
+    - Integracion en vivo en `/escuelas/[slug]` via `SchoolDynamicContent.tsx`
+      (posts expandibles, descarga y vista previa modal de flujogramas, y players
+      responsive de YouTube) y en la seccion de noticias de `/`.
+    - Persistencia local desacoplada en `data/portal-db.json` (auto-sembrada al
+      primer arranque con `admin@ingeula.org` / `IngeULA2026!` y
+      `electrica@ingeula.org` / `Electrica2026!`), lista para migrar a Postgres /
+      Supabase en el futuro cambiando `src/lib/db.ts`.
 ================================================================================

@@ -95,6 +95,12 @@ export function Header() {
             <Link href="/#contacto" className="transition-colors hover:text-white">
               Contacto
             </Link>
+            <Link
+              href="/admin"
+              className="rounded-sm bg-white/10 px-2.5 py-0.5 font-semibold text-white transition-colors hover:bg-white/20"
+            >
+              Panel Admin
+            </Link>
           </nav>
         </div>
       </div>
@@ -306,6 +312,12 @@ export function Header() {
               >
                 Ver todas las escuelas
                 <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link
+                href="/admin"
+                className="mt-2 flex w-full items-center justify-center rounded-sm border border-slate-200 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-700"
+              >
+                Panel Administrador
               </Link>
             </div>
           </div>

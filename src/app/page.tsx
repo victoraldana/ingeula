@@ -5,8 +5,13 @@ import { AcademicModelSection } from "@/components/AcademicModelSection";
 import { ResearchPillarsSection } from "@/components/ResearchPillarsSection";
 import { NewsSection } from "@/components/NewsSection";
 import { CampusLifeSection } from "@/components/CampusLifeSection";
+import { getScopeContent } from "@/lib/db";
+
+export const dynamic = "force-dynamic";
 
 export default function HomePage() {
+  const { posts: facultyPosts } = getScopeContent("facultad");
+
   return (
     <>
       <HeroSection />
@@ -14,7 +19,7 @@ export default function HomePage() {
       <SchoolsShowcase />
       <AcademicModelSection />
       <ResearchPillarsSection />
-      <NewsSection />
+      <NewsSection dynamicPosts={facultyPosts} />
       <CampusLifeSection />
     </>
   );
