@@ -1,3 +1,21 @@
+export interface HeroSlide {
+  id: string;
+  shortLabel: string;
+  badge: string;
+  title: string;
+  description: string;
+  image: string;
+  imageAlt: string;
+  primaryCta: {
+    label: string;
+    href: string;
+  };
+  secondaryCta: {
+    label: string;
+    href: string;
+  };
+}
+
 export interface FacultyMetric {
   value: string;
   label: string;
@@ -21,6 +39,85 @@ export interface AcademicStage {
   description: string;
   highlights: string[];
 }
+
+export const HERO_SLIDES: HeroSlide[] = [
+  {
+    id: "facultad-ingenieria",
+    shortLabel: "Facultad",
+    badge: "Universidad de Los Andes · Facultad de Ingeniería",
+    title: "Ingeniería con rigor científico que transforma el futuro desde los Andes.",
+    description:
+      "Bienvenido a IngeULA, el portal de la Facultad de Ingeniería de la ULA. Explora información general de la facultad y descubre nuestras cinco escuelas: Sistemas, Eléctrica, Civil, Mecánica y Química.",
+    image: "/images/hero-campus.jpg",
+    imageAlt:
+      "Campus de la Facultad de Ingeniería ULA rodeado de los Andes en Mérida",
+    primaryCta: {
+      label: "Conoce nuestras escuelas",
+      href: "/#escuelas",
+    },
+    secondaryCta: {
+      label: "Sobre la Facultad",
+      href: "/#modelo-academico",
+    },
+  },
+  {
+    id: "cinco-escuelas",
+    shortLabel: "Escuelas",
+    badge: "Oferta Académica · 5 Escuelas de Pregrado",
+    title: "Cinco escuelas con identidad propia, pensum riguroso y proyección global.",
+    description:
+      "Cada escuela de ingeniería cuenta con su propio espacio dedicado en IngeULA para centralizar áreas de especialización, departamentos, laboratorios y futuros recursos estudiantiles.",
+    image: "/images/school-sistemas.jpg",
+    imageAlt:
+      "Estudiantes de Ingeniería ULA colaborando en laboratorio de computación y sistemas",
+    primaryCta: {
+      label: "Explorar directorio de escuelas",
+      href: "/escuelas",
+    },
+    secondaryCta: {
+      label: "Ver Ingeniería de Sistemas",
+      href: "/escuelas/sistemas",
+    },
+  },
+  {
+    id: "investigacion-laboratorios",
+    shortLabel: "Investigación",
+    badge: "Laboratorios y Ciencia Aplicada · FI-ULA",
+    title: "Formación experimental, innovación tecnológica y vinculación con la industria.",
+    description:
+      "Desde sistemas eléctricos de potencia y estructuras sismorresistentes hasta procesos químicos y manufactura avanzada, nuestra formación combina teoría y laboratorio.",
+    image: "/images/school-electrica.jpg",
+    imageAlt:
+      "Laboratorio de Ingeniería Eléctrica y automatización en la Facultad de Ingeniería ULA",
+    primaryCta: {
+      label: "Investigación y laboratorios",
+      href: "/#investigacion",
+    },
+    secondaryCta: {
+      label: "Ver Ingeniería Eléctrica",
+      href: "/escuelas/electrica",
+    },
+  },
+  {
+    id: "actualidad-hechicera",
+    shortLabel: "Actualidad",
+    badge: "Núcleo La Hechicera · Mérida, Venezuela",
+    title: "Actualidad académica, anuncios y vida universitaria en la Facultad.",
+    description:
+      "Mantente al día con los anuncios institucionales, actividades académicas, eventos de escuelas y novedades de la comunidad de ingeniería ulandina.",
+    image: "/images/school-civil.jpg",
+    imageAlt:
+      "Estudiantes y proyectos en la Facultad de Ingeniería ULA, Núcleo La Hechicera",
+    primaryCta: {
+      label: "Ver actualidad y novedades",
+      href: "/#noticias",
+    },
+    secondaryCta: {
+      label: "Conoce La Hechicera",
+      href: "/#campus",
+    },
+  },
+];
 
 export const FACULTY_METRICS: FacultyMetric[] = [
   {

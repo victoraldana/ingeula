@@ -69,8 +69,10 @@ Patrones UX clave:
 - Barra superior institucional oscura (ubicacion La Hechicera + accesos rapidos).
 - Header sticky con logo geometrico IngeULA, mega-menu desplegable de las 5
   escuelas, modal de busqueda rapida por escuela/departamento/area y drawer movil.
-- Hero a pantalla completa con gradiente azul editorial y barra inferior de
-  acceso directo a las 5 escuelas.
+- Hero a pantalla completa con carrusel editorial interactivo (`HERO_SLIDES` en
+  `src/data/faculty.ts`) con autoplay, pausa/reanudacion, flechas, tabs
+  numerados y transicion suave para destacar anuncios/informacion apenas entra
+  el visitante, mas barra inferior de acceso directo a las 5 escuelas.
 - Seccion de escuelas con pestanas de filtro interactivo (Todas + cada escuela).
 
 
@@ -158,7 +160,11 @@ D:\ingeula\
   * Implementacion de la landing institucional inspirada en tec.mx/es y las
     rutas dedicadas para Sistemas, Electrica, Civil, Mecanica y Quimica.
   * Build de produccion verificado con exito (10 rutas generadas sin errores).
-- 2026-11-22:
+- 2026-11-22 (Commit 57436d0):
   * Creacion de este archivo `CONTEXTO_PORTAL_INGEULA.txt` para continuidad con
     otros agentes.
+- 2026-11-22:
+  * Conversion del Hero principal (`HeroSection.tsx`) en un carrusel interactivo
+    alimentado desde `HERO_SLIDES` en `src/data/faculty.ts` para mostrar
+    informacion destacada al visitante apenas entra al portal.
 ================================================================================
